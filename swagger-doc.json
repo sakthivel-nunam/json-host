@@ -1,1819 +1,1185 @@
 {
-	"swagger": "2.0",
-	"info": {
-		"description": "qmaxservice API documentation",
-		"version": "0.0.1",
-		"title": "qmaxservice API",
-		"contact": {},
-		"license": {
-			"name": ""
-		}
-	},
-	"host": "c1qmax.nunam.com",
-	"basePath": "/",
-	"tags": [{
-		"name": "vehicle-resource",
-		"description": "Vehicle Resource"
-	}],
-	"paths": {
-
-		"/api/v1/download-records": {
-			"get": {
-				"tags": ["download-record-resource"],
-				"summary": "getAllDownloadRecords",
-				"operationId": "getAllDownloadRecordsUsingGET",
-				"produces": ["*/*"],
-				"parameters": [{
-					"name": "tsStart",
-					"in": "query",
-					"description": "tsStart",
-					"required": true,
-					"type": "integer",
-					"format": "int64"
-				}],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/DownloadRecordDTO"
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			}
-		},
-		"/api/v1/fleets": {
-			"get": {
-				"tags": ["fleet-resource"],
-				"summary": "getAllFleets",
-				"operationId": "getAllFleetsUsingGET",
-				"produces": ["*/*"],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/FleetDTO"
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			}
-		},
-		"/api/v1/fleets/summary": {
-			"get": {
-				"tags": ["fleet-resource"],
-				"summary": "getFleetsSummary",
-				"operationId": "getFleetsSummaryUsingGET",
-				"produces": ["*/*"],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/FleetsSummaryDto"
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			}
-		},
-		"/api/v1/fleets/{id}": {
-			"get": {
-				"tags": ["fleet-resource"],
-				"summary": "getFleet",
-				"operationId": "getFleetUsingGET",
-				"produces": ["*/*"],
-				"parameters": [{
-					"name": "id",
-					"in": "path",
-					"description": "id",
-					"required": true,
-					"type": "integer",
-					"format": "int64"
-				}],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/FleetDTO"
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			},
-			"delete": {
-				"tags": ["fleet-resource"],
-				"summary": "deleteFleet",
-				"operationId": "deleteFleetUsingDELETE",
-				"produces": ["*/*"],
-				"parameters": [{
-					"name": "id",
-					"in": "path",
-					"description": "id",
-					"required": true,
-					"type": "integer",
-					"format": "int64"
-				}],
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"204": {
-						"description": "No Content"
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					}
-				},
-				"deprecated": false
-			}
-		},
-		"/api/v1/vehicles": {
-			"get": {
-				"tags": ["vehicle-resource"],
-				"summary": "getDeviceByToken",
-				"operationId": "getDeviceByTokenUsingGET",
-				"produces": ["*/*"],
-				"parameters": [{
-					"name": "fleetId",
-					"in": "query",
-					"description": "fleetId",
-					"required": false,
-					"type": "integer",
-					"format": "int64"
-				}],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/VehicleDTO"
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			}
-		},
-		"/api/v1/vehicles/download-telemetry": {
-			"post": {
-				"tags": ["vehicle-resource"],
-				"summary": "downloadTelemetry",
-				"operationId": "downloadTelemetryUsingPOST",
-				"consumes": ["application/json"],
-				"produces": ["*/*"],
-				"parameters": [{
-					"in": "body",
-					"name": "downloadRequest",
-					"description": "downloadRequest",
-					"required": true,
-					"schema": {
-						"$ref": "#/definitions/TelemetryDownloadRequest"
-					}
-				}],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "array",
-							"items": {
-								"$ref": "#/definitions/CycleDataDTO"
-							}
-						}
-					},
-					"201": {
-						"description": "Created"
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			}
-		},
-		"/api/v1/vehicles/summary": {
-			"get": {
-				"tags": ["vehicle-resource"],
-				"summary": "getDeviceStatsByToken",
-				"operationId": "getDeviceStatsByTokenUsingGET",
-				"produces": ["*/*"],
-				"parameters": [{
-					"name": "fleetId",
-					"in": "query",
-					"description": "fleetId",
-					"required": false,
-					"type": "integer",
-					"format": "int64"
-				}],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/VehicleStatus"
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			}
-		},
-		"/api/v1/vehicles/{id}": {
-			"get": {
-				"tags": ["vehicle-resource"],
-				"summary": "getDevice",
-				"operationId": "getDeviceUsingGET",
-				"produces": ["*/*"],
-				"parameters": [{
-					"name": "id",
-					"in": "path",
-					"description": "id",
-					"required": true,
-					"type": "integer",
-					"format": "int64"
-				}],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/VehicleDTO"
-						}
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				},
-				"deprecated": false
-			},
-			"/api/v1/vehicles/{id}/charge-cycle-count": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getChargeCycleCount",
-					"operationId": "getChargeCycleCountUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/CycleCount"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{id}/discharge-cycle-count": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getDischargeCycleCount",
-					"operationId": "getDischargeCycleCountUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/CycleCount"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{id}/fce": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getFullCycleEquivalent",
-					"operationId": "getFullCycleEquivalentUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "object"
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{id}/firmware-keys": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getFirmwareKeys",
-					"operationId": "getFirmwareKeysUsingGET_1",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"$ref": "#/definitions/CloudKeyInfo"
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{id}/release-from-fleet": {
-				"post": {
-					"tags": ["vehicle-resource"],
-					"summary": "releaseFromCustomer",
-					"operationId": "releaseFromCustomerUsingPOST",
-					"consumes": ["application/json"],
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK"
-						},
-						"201": {
-							"description": "Created"
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{id}/string-keys": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getStringKeys",
-					"operationId": "getStringKeysUsingGET_1",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"type": "string"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{id}/telemetry": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "telemetry",
-					"operationId": "telemetryUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "key",
-						"in": "query",
-						"description": "key",
-						"required": true,
-						"type": "string"
-					}, {
-						"name": "limit",
-						"in": "query",
-						"description": "limit",
-						"required": false,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "startTs",
-						"in": "query",
-						"description": "startTs",
-						"required": false,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "ts",
-						"in": "query",
-						"description": "ts",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/TelemetryDto"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{id}/telemetry-day": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "telemetryTS",
-					"operationId": "telemetryTSUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "id",
-						"in": "path",
-						"description": "id",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "key",
-						"in": "query",
-						"description": "key",
-						"required": true,
-						"type": "string"
-					}, {
-						"name": "ts",
-						"in": "query",
-						"description": "ts",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/TelemetryDto"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/assign/{fleetId}": {
-				"post": {
-					"tags": ["vehicle-resource"],
-					"summary": "assignToCustomer",
-					"operationId": "assignToCustomerUsingPOST",
-					"consumes": ["application/json"],
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "fleetId",
-						"in": "path",
-						"description": "fleetId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK"
-						},
-						"201": {
-							"description": "Created"
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/day-usage": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getDayStats",
-					"operationId": "getDayStatsUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "ts",
-						"in": "query",
-						"description": "ts",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/DayStats"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/latest-charge": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getRecentCharge",
-					"operationId": "getRecentChargeUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/CycleEvent"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/latest-discharge": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getRecentDischarge",
-					"operationId": "getRecentDischargeUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/CycleEvent"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/power-charged": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getPowerChargedStats",
-					"operationId": "getPowerChargedStatsUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/PowerStat"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/power-delivered": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getPowerDeliveredStats",
-					"operationId": "getPowerDeliveredStatsUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/PowerStat"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/temperature-stats": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getDeviceTmpStats",
-					"operationId": "getDeviceTmpStatsUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "ts",
-						"in": "query",
-						"description": "ts",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/TemperatureOverCycles"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/tmp-cycles-charge": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getTemperatureCycleCharge",
-					"operationId": "getTemperatureCycleChargeUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"$ref": "#/definitions/TemperatureCycle"
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/tmp-cycles-discharge": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getTemperatureCycleDischarge",
-					"operationId": "getTemperatureCycleDischargeUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"$ref": "#/definitions/TemperatureCycle"
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/total-minutes-charged": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getTotalMinutesCharged",
-					"operationId": "getTotalMinutesChargedUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "number",
-								"format": "double"
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/total-minutes-used": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getTotalMinutesUsed",
-					"operationId": "getTotalMinutesUsedUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "number",
-								"format": "double"
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/total-power-delivered": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getTotalPowerDelivered",
-					"operationId": "getTotalPowerDeliveredUsingGET_1",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "number",
-								"format": "double"
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/usage-sessions": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getSessions",
-					"operationId": "getSessionsUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "ts",
-						"in": "query",
-						"description": "ts",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/CycleDTO"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			},
-			"/api/v1/vehicles/{vehicleId}/usage-stats": {
-				"get": {
-					"tags": ["vehicle-resource"],
-					"summary": "getDeviceUsageByToken",
-					"operationId": "getDeviceUsageByTokenUsingGET",
-					"produces": ["*/*"],
-					"parameters": [{
-						"name": "ts",
-						"in": "query",
-						"description": "ts",
-						"required": false,
-						"type": "integer",
-						"format": "int64"
-					}, {
-						"name": "vehicleId",
-						"in": "path",
-						"description": "vehicleId",
-						"required": true,
-						"type": "integer",
-						"format": "int64"
-					}],
-					"responses": {
-						"200": {
-							"description": "OK",
-							"schema": {
-								"type": "array",
-								"items": {
-									"$ref": "#/definitions/UsageTime"
-								}
-							}
-						},
-						"401": {
-							"description": "Unauthorized"
-						},
-						"403": {
-							"description": "Forbidden"
-						},
-						"404": {
-							"description": "Not Found"
-						}
-					},
-					"deprecated": false
-				}
-			}
-		},
-		"definitions": {
-			"CycleCount": {
-				"type": "object",
-				"properties": {
-					"count": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"date": {
-						"type": "string",
-						"format": "date-time"
-					}
-				},
-				"title": "CycleCount"
-			},
-			"Cycle": {
-				"type": "object",
-				"properties": {
-					"cycleTypeId": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"energy": {
-						"type": "number",
-						"format": "double"
-					},
-					"id": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"tsEnd": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"tsStart": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"value": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"title": "CycleDTO"
-			},
-			"CycleData": {
-				"type": "object",
-				"properties": {
-					"cycle": {
-						"$ref": "#/definitions/Cycle"
-					},
-					"dataId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"ic": {
-						"type": "number",
-						"format": "double"
-					},
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
-					"lv": {
-						"type": "number",
-						"format": "double"
-					},
-					"soc": {
-						"type": "number",
-						"format": "double"
-					},
-					"soh": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv1": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv10": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv11": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv12": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv13": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv14": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv15": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv16": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv17": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv18": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv19": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv2": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv20": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv3": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv4": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv5": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv6": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv7": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv8": {
-						"type": "number",
-						"format": "double"
-					},
-					"strv9": {
-						"type": "number",
-						"format": "double"
-					},
-					"tmp": {
-						"type": "number",
-						"format": "double"
-					},
-					"ts": {
-						"type": "integer",
-						"format": "int64"
-					}
-				},
-				"title": "CycleData",
-				"description": "not an ignored comment"
-			},
-			"CycleEvent": {
-				"type": "object",
-				"properties": {
-					"cycleCount": {
-						"type": "number",
-						"format": "double"
-					},
-					"date": {
-						"type": "string"
-					},
-					"ts": {
-						"type": "integer",
-						"format": "int64"
-					}
-				},
-				"title": "CycleEvent"
-			},
-			"CycleStats": {
-				"type": "object",
-				"properties": {
-					"averageTmp": {
-						"type": "number",
-						"format": "double"
-					},
-					"capacity": {
-						"type": "number",
-						"format": "double"
-					},
-					"id": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"maxTmp": {
-						"type": "number",
-						"format": "double"
-					},
-					"minTmp": {
-						"type": "number",
-						"format": "double"
-					},
-					"rate": {
-						"type": "number",
-						"format": "double"
-					},
-					"value": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"title": "CycleStats"
-			},
-			"CycleType": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"type": {
-						"type": "string"
-					}
-				},
-				"title": "CycleType"
-			},
-			"DayStats": {
-				"type": "object",
-				"properties": {
-					"ts": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"type": {
-						"type": "integer",
-						"format": "int32"
-					}
-				},
-				"title": "DayStats"
-			},
-			"DownloadRecord": {
-				"type": "object",
-				"properties": {
-					"betteryId": {
-						"type": "string",
-						"format": "uuid"
-					},
-					"dataPoints": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"endTs": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"id": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"numberOfDatapoints": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"qmaxUserId": {
-						"type": "string",
-						"format": "uuid"
-					},
-					"startTs": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"ts": {
-						"type": "integer",
-						"format": "int64"
-					}
-				},
-				"title": "DownloadRecordDTO"
-			},
-			"Fleet": {
-				"type": "object",
-				"properties": {
-					"cloud": {
-						"$ref": "#/definitions/CloudDTO"
-					},
-					"cloudId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"fleetOperator": {
-						"$ref": "#/definitions/FleetOperatorDTO"
-					},
-					"fleetOperatorId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"id": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"name": {
-						"type": "string"
-					}
-				},
-				"title": "FleetDTO"
-			},
-
-			"FleetOperator": {
-				"type": "object",
-				"properties": {
-					"cloud": {
-						"$ref": "#/definitions/CloudDTO"
-					},
-					"cloudId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"id": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"name": {
-						"type": "string"
-					}
-				},
-				"title": "FleetOperatorDTO"
-			},
-			"FleetsSummary": {
-				"type": "object",
-				"properties": {
-					"dateAdded": {
-						"type": "string"
-					},
-					"fleetId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"name": {
-						"type": "string"
-					},
-					"numberOfAlarms": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"numberOfVehicles": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"numberOfViolations": {
-						"type": "integer",
-						"format": "int32"
-					}
-				},
-				"title": "FleetsSummaryDto"
-			},
-			"PowerStat": {
-				"type": "object",
-				"properties": {
-					"date": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"power": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"title": "PowerStat"
-			},
-
-			"TelemetryDownloadRequest": {
-				"type": "object",
-				"properties": {
-					"animation": {
-						"type": "boolean"
-					},
-					"batteryId": {
-						"type": "string",
-						"format": "uuid"
-					},
-					"endTime": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"ic": {
-						"type": "boolean"
-					},
-					"id": {
-						"type": "boolean"
-					},
-					"lv": {
-						"type": "boolean"
-					},
-					"soc": {
-						"type": "boolean"
-					},
-					"startTime": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"strv": {
-						"type": "boolean"
-					},
-					"tmp": {
-						"type": "boolean"
-					},
-					"ts": {
-						"type": "integer",
-						"format": "int64"
-					}
-				},
-				"title": "TelemetryDownloadRequest"
-			},
-			"Telemetry": {
-				"type": "object",
-				"properties": {
-					"ts": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"value": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"title": "TelemetryDto"
-			},
-			"TelemetryPoint": {
-				"type": "object",
-				"properties": {
-					"ts": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"value": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"title": "TelemetryPoint"
-			},
-			"TemperatureCycle": {
-				"type": "object",
-				"properties": {
-					"averageTmp": {
-						"type": "number",
-						"format": "double"
-					},
-					"cycleFive": {
-						"type": "array",
-						"items": {
-							"$ref": "#/definitions/TelemetryPoint"
-						}
-					},
-					"cycleFour": {
-						"type": "array",
-						"items": {
-							"$ref": "#/definitions/TelemetryPoint"
-						}
-					},
-					"cycleOne": {
-						"type": "array",
-						"items": {
-							"$ref": "#/definitions/TelemetryPoint"
-						}
-					},
-					"cycleThree": {
-						"type": "array",
-						"items": {
-							"$ref": "#/definitions/TelemetryPoint"
-						}
-					},
-					"cycleTwo": {
-						"type": "array",
-						"items": {
-							"$ref": "#/definitions/TelemetryPoint"
-						}
-					},
-					"maxTmp": {
-						"type": "number",
-						"format": "double"
-					},
-					"minTmp": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"title": "TemperatureCycle"
-			},
-			"TemperatureOverCycleRecord": {
-				"type": "object",
-				"properties": {
-					"soc": {
-						"type": "number",
-						"format": "double"
-					},
-					"temperature": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"title": "TemperatureOverCycleRecord"
-			},
-			"TemperatureOverCycles": {
-				"type": "object",
-				"properties": {
-					"date": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"maxCharge": {
-						"$ref": "#/definitions/TemperatureOverCycleRecord"
-					},
-					"maxDisCharge": {
-						"$ref": "#/definitions/TemperatureOverCycleRecord"
-					},
-					"minCharge": {
-						"$ref": "#/definitions/TemperatureOverCycleRecord"
-					},
-					"minDisCharge": {
-						"$ref": "#/definitions/TemperatureOverCycleRecord"
-					}
-				},
-				"title": "TemperatureOverCycles"
-			},
-			"UsageTime": {
-				"type": "object",
-				"properties": {
-					"minutes": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"type": {
-						"type": "integer",
-						"format": "int32"
-					}
-				},
-				"title": "UsageTime"
-			},
-
-			"Vehicle": {
-				"type": "object",
-				"properties": {
-					"battery": {
-						"$ref": "#/definitions/BatteryDTO"
-					},
-					"batteryId": {
-						"type": "string",
-						"format": "uuid"
-					},
-					"chasisNumber": {
-						"type": "string"
-					},
-					"fleet": {
-						"$ref": "#/definitions/FleetDTO"
-					},
-					"fleetId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"fleetOperator": {
-						"$ref": "#/definitions/FleetOperatorDTO"
-					},
-					"fleetOperatorId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"id": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"manufacturedYear": {
-						"type": "string"
-					},
-					"manufacturer": {
-						"$ref": "#/definitions/ManufacturerDTO"
-					},
-					"manufacturerId": {
-						"type": "integer",
-						"format": "int64"
-					},
-					"modelName": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"registrationNumber": {
-						"type": "string"
-					}
-				},
-				"title": "VehicleDTO"
-			},
-			"VehicleStatus": {
-				"type": "object",
-				"properties": {
-					"active": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"idle": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"inCharge": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"notConnected": {
-						"type": "integer",
-						"format": "int32"
-					}
-				},
-				"title": "VehicleStatus"
-			}
-		}
-	}
+    "swagger": "2.0",
+    "info": {
+        "description": "qmaxservice API documentation",
+        "version": "0.0.1",
+        "title": "qmaxservice API",
+        "contact": {},
+        "license": {
+            "name": ""
+        }
+    },
+    "host": "qmax.nunam.com",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "battery-resource",
+            "description": "Battery Resource"
+        }
+    ],
+    "paths": {
+        "/api/v1/batteries/": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getAllBatteries",
+                "operationId": "getAllBatteriesUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/BatteryDTO"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        
+        "/api/v1/batteries/soh-stats": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "sohStats",
+                "operationId": "sohStatsUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "parameter",
+                        "in": "query",
+                        "description": "parameter",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/BatteryStats"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getBattery",
+                "operationId": "getBatteryUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/BatteryDTO"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/charge-cycle-count": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getChargeCycleCount",
+                "operationId": "getChargeCycleCountUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CycleCount"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/connectivity-stats": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "thingsboardTelemetry",
+                "operationId": "thingsboardTelemetryUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "modulePosition",
+                        "in": "query",
+                        "description": "modulePosition",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/JsonNode"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        
+        "/api/v1/batteries/{id}/days-usage-stats": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getWeekBatteryUsageStats",
+                "operationId": "getWeekBatteryUsageStatsUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "numberOfDays",
+                        "in": "query",
+                        "description": "numberOfDays",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/DayWiseUsageStats"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        
+        "/api/v1/batteries/{id}/energy_delivered": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getenergyDelivered",
+                "operationId": "getenergyDeliveredUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/fce": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getFullCycleEquivalent",
+                "operationId": "getFullCycleEquivalentUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        
+        "/api/v1/batteries/{id}/power-charged": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getPowerChargedStats",
+                "operationId": "getPowerChargedStatsUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PowerStat"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/power-delivered": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getPowerDeliveredStats",
+                "operationId": "getPowerDeliveredStatsUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "vehicleId",
+                        "in": "path",
+                        "description": "vehicleId",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PowerStat"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/temperature-stats": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getDeviceTmpStats",
+                "operationId": "getDeviceTmpStatsUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "query",
+                        "description": "ts",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TemperatureOverCycles"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/soh": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getBatterySoh",
+                "operationId": "getBatterySohUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/status": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getBatteryUsageStatus",
+                "operationId": "getBatteryUsageStatusUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "query",
+                        "description": "ts",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/telemetry": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "telemetry",
+                "operationId": "telemetryUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "description": "key",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "limit",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "modulePosition",
+                        "in": "query",
+                        "description": "modulePosition",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "startTs",
+                        "in": "query",
+                        "description": "startTs",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "query",
+                        "description": "ts",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/JsonNode"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/tmp-cycles-charge": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getTemperatureCycleCharge",
+                "operationId": "getTemperatureCycleChargeUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TemperatureCycle"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/tmp-cycles-discharge": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getTemperatureCycleDischarge",
+                "operationId": "getTemperatureCycleDischargeUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TemperatureCycle"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/total-mills-charged": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getTotalMinutesCharged",
+                "operationId": "getTotalMinutesChargedUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/total-mills-used": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getTotalMinutesUsed",
+                "operationId": "getTotalMinutesUsedUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/total-power-delivered": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getTotalPowerDelivered",
+                "operationId": "getTotalPowerDeliveredUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/usage-sessions": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getSessions",
+                "operationId": "getSessionsUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "ts",
+                        "in": "query",
+                        "description": "ts",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UsageSessions"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/batteries/{id}/usage-stats": {
+            "get": {
+                "tags": [
+                    "battery-resource"
+                ],
+                "summary": "getBatteryUsageStats",
+                "operationId": "getBatteryUsageStatsUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UsageStats"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    },
+    "definitions": {
+        BatteryDTO": {
+            "type": "object",
+            "properties": {
+                "batteryType": {
+                    "$ref": "#/definitions/BatteryTypeDto"
+                },
+                "batteryTypeId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "chemistryType": {
+                    "$ref": "#/definitions/ChemistryTypeDTO"
+                },
+                "chemistryTypeId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "installationId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "manufacturer": {
+                    "$ref": "#/definitions/ManufacturerDTO"
+                },
+                "manufacturerId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "modulePosition": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nominalVoltage": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "numberOfStrings": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "operatingRange": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "packCapacity": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "partner": {
+                    "$ref": "#/definitions/PartnerDTO"
+                },
+                "partnerId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "soh": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "BatteryDTO"
+        },
+        "CycleCount": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "title": "CycleCount"
+        },
+        "DayWiseUsageStats": {
+            "type": "object",
+            "properties": {
+                "chargeCycles": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "dischargeCycles": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "energyCharged": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "energyDelivered": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "minutesCharged": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "minutesUsed": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "title": "DayWiseUsageStats"
+        },
+         "PowerStat": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "power": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "PowerStat"
+        },
+        "TemperatureCycle": {
+            "type": "object",
+            "properties": {
+                "averageTmp": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "cycleFive": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TelemetryPoint"
+                    }
+                },
+                "cycleFour": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TelemetryPoint"
+                    }
+                },
+                "cycleOne": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TelemetryPoint"
+                    }
+                },
+                "cycleThree": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TelemetryPoint"
+                    }
+                },
+                "cycleTwo": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TelemetryPoint"
+                    }
+                },
+                "maxTmp": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "minTmp": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "TemperatureCycle"
+        },
+        "TemperatureOverCycleRecord": {
+            "type": "object",
+            "properties": {
+                "soc": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "temperature": {
+                    "type": "number",
+                    "format": "double"
+                }
+            },
+            "title": "TemperatureOverCycleRecord"
+        },
+        "TemperatureOverCycles": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "maxCharge": {
+                    "$ref": "#/definitions/TemperatureOverCycleRecord"
+                },
+                "maxDisCharge": {
+                    "$ref": "#/definitions/TemperatureOverCycleRecord"
+                },
+                "minCharge": {
+                    "$ref": "#/definitions/TemperatureOverCycleRecord"
+                },
+                "minDisCharge": {
+                    "$ref": "#/definitions/TemperatureOverCycleRecord"
+                }
+            },
+            "title": "TemperatureOverCycles"
+        },
+    }
 }
-
-
-
-
-
-
